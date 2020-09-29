@@ -4,8 +4,8 @@ const restify = require('express-restify-mongoose');
 const methodOverride = require('method-override');
 
 const utils = require('./utils');
+const apolloServer = require('../apollo/apollo-server')
 const deceasedSchema = require('../models/Funeral');
-const { ApolloServer, gql } = require('apollo-server-express');
 
 module.exports = (config) => {
     let server;
@@ -20,26 +20,15 @@ module.exports = (config) => {
         app.use(bodyParser.urlencoded({ extended: true }));
 
         db = await utils.getDbConnection();
+        // apollo server still twisted about naming with this.
+        const apolloNode = await apolloServer(db)
 
         const Deceased = deceasedSchema(db);
         const model = { Deceased };
 
-        const apolloServer = new ApolloServer({
-            typeDefs: gql`
-                type Query {
-                    hello: String
-                }
-            `,
-            resolvers: {
-                Query: {
-                    hello: () => 'Hello world!',
-                },
-            },
-        });
-
         restify.serve(router, Deceased);
 
-        apolloServer.applyMiddleware({ app });
+        apolloNode.applyMiddleware({ app });
 
         app.use(router);
         app.use('/api/v1', require('../api/v1')({ model }));
