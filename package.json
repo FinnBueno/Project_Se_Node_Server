@@ -4,7 +4,7 @@
     "description": "project_se_node_server",
     "main": "./dist/server.js",
     "scripts": {
-        "prestart": "tslint -c tslint.json -p tsconfig.json --fix",
+        "prestart": "npm run lint",
         "start": "npm run serve",
         "serve": "node dist/server.js",
         "dev": "concurrently --kill-others \"npm run watch-node\" \"npm run watch-ts\"",
@@ -13,7 +13,8 @@
         "prebuild": "npm run prestart",
         "build": "tsc",
         "build-ts": "tsc",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "tslint -c tslint.json -p tsconfig.json --fix"
     },
     "repository": {
         "type": "git",
