@@ -1,43 +1,46 @@
-import { Resolver, Query, Arg, Mutation } from 'type-graphql';
-import { Deceased } from '../../entities/deceased';
+import { Resolver, Query, Arg, Mutation, Authorized } from 'type-graphql';
+import { Deceased, DeceasedModel } from '../../entities/deceased';
 import { PersistDeceasedInput } from './input';
 
 @Resolver(_of => Deceased)
 export class DeceasedResolver {
 
+    @Authorized()
     @Query(_returns => Deceased, { nullable: true })
     async deceased(@Arg('id') id: string): Promise<Deceased> {
-        return {
-            id,
-            firstname: 'First name',
-            lastname: 'Last name',
-        }
+        return await DeceasedModel.findById(id);
     }
 
+    @Authorized()
     @Query(_returns => [Deceased])
     async allDeceased(): Promise<Deceased[]> {
-        const numbers = Array.from(
-            Array(5).keys()
-        );
-        return numbers.map(id => (
-            {
-                id: String(id),
-                firstname: `First name ${id}`,
-                lastname: `Last name ${id}`,
-            }
-        ));
+        return await DeceasedModel.find();
     }
 
+    @Authorized()
     @Mutation(_returns => Deceased)
     async persistDeceased(
         @Arg('input', () => PersistDeceasedInput)
-        { id, firstname, lastname }: PersistDeceasedInput
+        { firstname, lastname }: PersistDeceasedInput
     ): Promise<Deceased> {
-        return {
-            id,
+        const { _id: id } = await DeceasedModel.create({
             firstname,
-            lastname
+            lastname,
+        });
+        return await DeceasedModel.findById(id).exec();
+    }
+
+    @Authorized()
+    @Mutation(_returns => Boolean)
+    async deleteDeceased(
+        @Arg('id') id: string
+    ): Promise<boolean> {
+        const deceased = await DeceasedModel.findById(id)
+        if (deceased) {
+            await DeceasedModel.findById(id).remove().exec();
+            return true;
         }
+        return false;
     }
 
 }

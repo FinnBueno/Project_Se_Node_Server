@@ -3,6 +3,14 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""A user account that allows someone to log in"""
+type Account {
+  email: String!
+  firstname: String!
+  id: ID!
+  lastname: String!
+}
+
 """The deceased model"""
 type Deceased {
   firstname: String!
@@ -16,13 +24,21 @@ type Funeral {
   id: ID!
 }
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
+  deleteDeceased(id: String!): Boolean!
+  login(input: LoginInput!): Account
+  logout: Boolean!
   persistDeceased(input: PersistDeceasedInput!): Deceased!
+  register(input: RegisterInput!): Account
 }
 
 input PersistDeceasedInput {
   firstname: String!
-  id: String!
   lastname: String!
 }
 
@@ -30,4 +46,11 @@ type Query {
   allDeceased: [Deceased!]!
   deceased(id: String!): Deceased
   funeral(id: String!): Funeral
+}
+
+input RegisterInput {
+  email: String!
+  firstname: String!
+  lastname: String!
+  password: String!
 }
