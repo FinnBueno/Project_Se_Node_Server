@@ -23,14 +23,18 @@ export class Account {
     lastname: string;
 
     @Property()
+    currentToken?: string;
+
+    @Property()
     // fear not, this is hashed and well, only saved as a string
     password: string;
 
     public generateJWT() {
-        return jwt.sign({
+        const token = jwt.sign({
             email: this.email,
             id: this.id,
         } as DecodedToken, process.env.SESSION_SECRET);
+        return token;
     }
 
     public async validatePassword(password: string) {
@@ -39,6 +43,10 @@ export class Account {
 
     public async setPassword(password: string) {
         this.password = await bcrypt.hash(password, 10);
+    }
+
+    public invalidateToken() {
+        this.currentToken = null;
     }
 }
 

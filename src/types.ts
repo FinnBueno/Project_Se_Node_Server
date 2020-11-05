@@ -5,11 +5,10 @@ import { Account } from "./entities/auth";
 export type Ref<T> = T | ObjectId;
 
 export interface Context {
+    token: string;
     decodedToken?: DecodedToken;
     req: ExpressRequest;
     res: ExpressResponse;
-    login: (account: Account) => void;
-    logout: () => void;
 }
 
 export interface DecodedToken {

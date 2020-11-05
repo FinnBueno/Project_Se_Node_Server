@@ -58,17 +58,15 @@ const main = async () => {
         // create the context for a request
         context: ({ req, res }) => {
             // find the authorization cookie, and decode it if it exists. This way, the auth filter can work with it and find the associated user
-            const token = req.cookies.authorization;
+            const token = req.headers.authorization?.substring('Bearer '.length);
             const decodedToken = (token && jwt.decode(token) as DecodedToken);
             return {
                 // include original Request and Response objects
                 req,
                 res,
+                token,
                 // include the decoded token
-                decodedToken,
-                // include functions to log a user in and out, which can be used in resolvers through the Context object
-                login: (account: Account) => res.cookie('authorization', account.generateJWT()),
-                logout: () => res.cookie('authorization', null)
+                decodedToken
             };
         }
     });

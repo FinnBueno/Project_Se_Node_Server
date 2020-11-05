@@ -20,7 +20,8 @@ type Deceased {
 
 """The funeral model"""
 type Funeral {
-  deceased: Deceased!
+  account: Account!
+  deceased: Deceased
   id: ID!
 }
 
@@ -30,8 +31,9 @@ input LoginInput {
 }
 
 type Mutation {
+  createFuneral: Funeral!
   deleteDeceased(id: String!): Boolean!
-  login(input: LoginInput!): Account
+  login(input: LoginInput!): String
   logout: Boolean!
   persistDeceased(input: PersistDeceasedInput!): Deceased!
   register(input: RegisterInput!): Account
@@ -45,7 +47,9 @@ input PersistDeceasedInput {
 type Query {
   allDeceased: [Deceased!]!
   deceased(id: String!): Deceased
-  funeral(id: String!): Funeral
+  funeral(id: String): Funeral
+  funerals: [Funeral!]!
+  loggedIn: Account!
 }
 
 input RegisterInput {
