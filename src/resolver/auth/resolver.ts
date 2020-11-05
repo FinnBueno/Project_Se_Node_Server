@@ -9,7 +9,7 @@ export class AuthResolver {
     @Mutation(_returns => String, { nullable: true })
     async login(
         @Arg('input') { email, password }: LoginInput,
-    ): Promise<String> {
+    ): Promise<string> {
         const account = await AccountModel.findOne({ email });
 
         // this if statement should actually never trigger, the statement above should crash if no account can be found
@@ -18,7 +18,7 @@ export class AuthResolver {
         const isValid = await account.validatePassword(password);
 
         if (!isValid) throw new Error('Password is wrong');
-        
+
         const token = account.generateJWT();
         await AccountModel.update(
             { _id: account.id },
@@ -63,8 +63,6 @@ export class AuthResolver {
         await account.setPassword(input.password);
 
         const dbAccount = await AccountModel.create(account);
-
-        ctx.login(dbAccount);
 
         return dbAccount;
     }

@@ -1,5 +1,4 @@
 import { Resolver, Query, Arg, Ctx, Authorized, Mutation } from 'type-graphql';
-import { DeceasedResolver } from '../deceased';
 import { Funeral, FuneralModel } from '../../entities/funeral';
 import { Context } from '../../types';
 import { AccountModel } from '../../entities/auth';
@@ -25,10 +24,7 @@ export class FuneralResolver {
     @Authorized()
     async createFuneral(@Ctx() ctx: Context): Promise<Funeral> {
         const account = await AccountModel.findById(ctx.decodedToken.id);
-        return await FuneralModel.create({ account });
+        return await FuneralModel.create({ account, lastCreationStep: 0 });
     }
-
-    getFakeDeceasedPerson = () => (new DeceasedResolver()).deceased(String(Math.floor(Math.random() * 10)));
-    getFakeAccount = () => ({  })
 
 }

@@ -11,11 +11,29 @@ type Account {
   lastname: String!
 }
 
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 """The deceased model"""
 type Deceased {
-  firstname: String!
+  address: String
+  amountOfChildren: Float
+  amountOfMinors: Float
+  bsn: String
+  callname: String
+  dateOfBirth: DateTime
+  firstname: String
+  gender: String
+  girlname: String
   id: ID!
-  lastname: String!
+  lastname: String
+  maritalStatus: String
+  postal: String
+  religion: String
+  title: String
+  town: String
 }
 
 """The funeral model"""
@@ -23,6 +41,7 @@ type Funeral {
   account: Account!
   deceased: Deceased
   id: ID!
+  lastCreationStep: Float
 }
 
 input LoginInput {
@@ -32,24 +51,35 @@ input LoginInput {
 
 type Mutation {
   createFuneral: Funeral!
-  deleteDeceased(id: String!): Boolean!
   login(input: LoginInput!): String
   logout: Boolean!
-  persistDeceased(input: PersistDeceasedInput!): Deceased!
   register(input: RegisterInput!): Account
+  savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
 }
 
 input PersistDeceasedInput {
-  firstname: String!
-  lastname: String!
+  address: String
+  amountOfChildren: Float
+  amountOfMinors: Float
+  bsn: String
+  callname: String
+  dateOfBirth: DateTime
+  firstname: String
+  gender: String
+  girlname: String
+  lastname: String
+  maritalStatus: String
+  postal: String
+  religion: String
+  title: String
+  town: String
 }
 
 type Query {
-  allDeceased: [Deceased!]!
-  deceased(id: String!): Deceased
   funeral(id: String): Funeral
   funerals: [Funeral!]!
   loggedIn: Account!
+  personalia(id: String!): Deceased
 }
 
 input RegisterInput {

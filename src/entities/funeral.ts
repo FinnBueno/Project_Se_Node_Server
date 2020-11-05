@@ -15,8 +15,12 @@ export class Funeral {
 
     @Field(_type => Account)
     // TODO: Set required to true once fake deceased person is gone
-    @Property({ ref: Account, required: false })
-    account?: Ref<Account>
+    @Property({ ref: Account, required: true })
+    account: Ref<Account>
+
+    @Field(_type => Number, { nullable: true })
+    @Property({ required: false })
+    lastCreationStep?: number;
 }
 
 export const FuneralModel = getModelForClass(Funeral);
