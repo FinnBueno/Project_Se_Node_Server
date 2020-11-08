@@ -10,13 +10,12 @@ export class Funeral {
     id: string;
 
     @Field(_type => Deceased, { nullable: true })
-    @Property({ ref: Deceased, required: false })
-    deceased?: Ref<Deceased>
+    @Property({ type: Deceased, required: false })
+    deceased?: Deceased
 
-    @Field(_type => Account)
-    // TODO: Set required to true once fake deceased person is gone
-    @Property({ ref: Account, required: true })
-    account: Ref<Account>
+    @Field(_type => Account, { nullable: true })
+    @Property({ ref: Account, required: false })
+    account?: Ref<Account>;
 
     @Field(_type => Number, { nullable: true })
     @Property({ required: false })

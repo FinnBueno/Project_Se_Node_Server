@@ -1,10 +1,10 @@
 import { ObjectType, Field, ID } from 'type-graphql';
 import { prop as Property, getModelForClass } from '@typegoose/typegoose';
 
-@ObjectType({ description?: 'The deceased model' })
+@ObjectType({ description: 'The deceased model' })
 export class Deceased {
-    @Field(() => ID)
-    id: string;
+    // @Field(() => ID)
+    // id: string;
 
     @Field({ nullable: true })
     @Property()
@@ -67,4 +67,4 @@ export class Deceased {
     religion?: string;
 }
 
-export const DeceasedModel = getModelForClass(Deceased);
+// export const DeceasedModel = getModelForClass(Deceased);

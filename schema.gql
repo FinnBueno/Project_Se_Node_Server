@@ -27,7 +27,6 @@ type Deceased {
   firstname: String
   gender: String
   girlname: String
-  id: ID!
   lastname: String
   maritalStatus: String
   postal: String
@@ -38,7 +37,7 @@ type Deceased {
 
 """The funeral model"""
 type Funeral {
-  account: Account!
+  account: Account
   deceased: Deceased
   id: ID!
   lastCreationStep: Float
