@@ -20,7 +20,7 @@ export class AuthResolver {
         if (!isValid) throw new Error('Password is wrong');
 
         const token = account.generateJWT();
-        await AccountModel.update(
+        await AccountModel.updateOne(
             { _id: account.id },
             { currentToken: token }
         );
