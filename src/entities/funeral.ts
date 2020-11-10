@@ -5,6 +5,8 @@ import { Deceased } from './deceased';
 import { Account } from './auth';
 import { Circumstances } from './circumstances';
 import { Client } from './client'
+import { Transmission } from './transmission';
+import { Insurance } from './insurance';
 import { FinalCare } from './finalcare';
 
 @ObjectType({ description: 'The funeral model' })
@@ -20,6 +22,10 @@ export class Funeral {
     @Property({ type: Circumstances, required: false })
     circumstances?: Circumstances;
 
+    @Field(_type => [Insurance], { nullable: true })
+    @Property({ type: [Insurance], required: false })
+    insurances?: Insurance[];
+
     @Field(_type => Client, { nullable: true })
     @Property({ type: Client, required: false })
     client?: Client
@@ -27,6 +33,10 @@ export class Funeral {
     @Field(_type => FinalCare, { nullable: true })
     @Property({ type: FinalCare, required: false })
     finalcare?: FinalCare
+
+    @Field(_type => [Transmission], { nullable: true })
+    @Property({ type: [Transmission], required: false })
+    transmissions?: Transmission[];
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })

@@ -84,7 +84,15 @@ type Funeral {
   deceased: Deceased
   finalcare: FinalCare
   id: ID!
+  insurances: [Insurance!]
   lastCreationStep: Float
+  transmission: Transmission
+}
+
+"""Insurance object"""
+type Insurance {
+  company: String
+  policynumber: String
 }
 
 input LoginInput {
@@ -100,7 +108,9 @@ type Mutation {
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
   saveFinalCare(finalcare: PersistFinalCareInput!, funeralId: String!): FinalCare!
+  saveInsurances(funeralId: String!, insurances: [PersistInsuranceInput!]!): Boolean!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
+  saveTransmission(funeralId: String!, transmission: PersistTransmissionInput!): Transmission!
 }
 
 """Circumstances of death"""
@@ -159,6 +169,22 @@ input PersistFinalCareInput {
   makeFingerprint: String
   makeUpHairstyleWishes: String
   wishesJewelryGlasses: String
+
+input PersistTransmissionInput {
+  by: String
+  date: DateTime
+  from: String
+  fromAddress: String
+  fromPlace: String
+  to: String
+  toAddress: String
+  toPlace: String
+}
+
+"""Insurance object"""
+input PersistInsuranceInput {
+  company: String
+  policynumber: String
 }
 
 type Query {
@@ -167,8 +193,10 @@ type Query {
   finalcare(id: String!): FinalCare
   funeral(id: String): Funeral
   funerals: [Funeral!]!
+  insurances(id: String!): [Insurance!]
   loggedIn: Account!
   personalia(id: String!): Deceased
+  transmission(id: String!): Transmission
 }
 
 input RegisterInput {
@@ -176,4 +204,16 @@ input RegisterInput {
   firstname: String!
   lastname: String!
   password: String!
+}
+
+"""The transmission model"""
+type Transmission {
+  by: String
+  date: DateTime
+  from: String
+  fromAddress: String
+  fromPlace: String
+  to: String
+  toAddress: String
+  toPlace: String
 }
