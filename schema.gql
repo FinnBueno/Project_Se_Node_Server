@@ -71,6 +71,7 @@ type Funeral {
   deceased: Deceased
   id: ID!
   lastCreationStep: Float
+  visiting: Visiting
 }
 
 input LoginInput {
@@ -85,7 +86,7 @@ type Mutation {
   register(input: RegisterInput!): Account
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
-  savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
+  savePersonalia(funeralId: String!, visiting: PersistVisitingInput!): Visiting!
 }
 
 """Circumstances of death"""
@@ -115,22 +116,13 @@ input PersistClientInput {
   town: String
 }
 
-input PersistDeceasedInput {
-  address: String
-  amountOfChildren: Float
-  amountOfMinors: Float
-  bsn: String
-  callname: String
-  dateOfBirth: DateTime
-  firstname: String
-  gender: String
-  girlname: String
-  lastname: String
-  maritalStatus: String
-  postal: String
-  religion: String
-  title: String
-  town: String
+input PersistVisitingInput {
+  date: DateTime
+  kindOfVisit: String
+  location: String
+  specialNeeds: String
+  timeOfArrival: DateTime
+  timeOfLeave: DateTime
 }
 
 type Query {
@@ -140,6 +132,7 @@ type Query {
   funerals: [Funeral!]!
   loggedIn: Account!
   personalia(id: String!): Deceased
+  visiting(id: String!): Visiting
 }
 
 input RegisterInput {
@@ -147,4 +140,14 @@ input RegisterInput {
   firstname: String!
   lastname: String!
   password: String!
+}
+
+"""The visiting model"""
+type Visiting {
+  date: DateTime
+  kindOfVisit: String
+  location: String
+  specialNeeds: String
+  timeOfArrival: DateTime
+  timeOfLeave: DateTime
 }
