@@ -1,7 +1,7 @@
 import { ObjectType, Field } from 'type-graphql';
 import { prop as Property } from '@typegoose/typegoose';
 
-@ObjectType({ description: 'The transmission model' })
+@ObjectType({ description: 'Transmission object' })
 export class Transmission {
 
     @Field({ nullable: true })

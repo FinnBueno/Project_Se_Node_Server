@@ -1,7 +1,7 @@
 import { InputType, Field } from "type-graphql";
 import { DateScalarMode } from "type-graphql/dist/schema/build-context";
 
-@InputType()
+@InputType({ description: 'Transmission object' })
 export class PersistTransmissionInput {
     @Field({ nullable: true })
     date?: Date;
