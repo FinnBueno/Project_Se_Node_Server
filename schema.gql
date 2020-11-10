@@ -112,7 +112,7 @@ type Mutation {
   saveInsurances(funeralId: String!, insurances: [PersistInsuranceInput!]!): Boolean!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
   saveTransmissions(funeralId: String!, transmissions: [PersistTransmissionInput!]!): Boolean!
-  saveVisiting(funeralId: String!, visiting: [PersistVisitingInput!]!): Visiting!
+  saveVisiting(funeralId: String!, visiting: [PersistVisitingInput!]!): Boolean!
 }
 
 """Circumstances of death"""

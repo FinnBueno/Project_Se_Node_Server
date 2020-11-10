@@ -13,7 +13,7 @@ export class VisitingResolver {
     }
 
     @Authorized()
-    @Mutation(_returns => Visiting)
+    @Mutation(_returns => Boolean)
     async saveVisiting(@Arg('funeralId') id: string, @Arg('visiting', () => [PersistVisitingInput]) visiting: PersistVisitingInput[]): Promise<boolean> {
         const funeral = await FuneralModel.findById(id);
         funeral.visiting = visiting;
