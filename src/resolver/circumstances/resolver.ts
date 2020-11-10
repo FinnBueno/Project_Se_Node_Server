@@ -1,6 +1,5 @@
 import { Resolver, Query, Arg, Mutation, Authorized } from 'type-graphql';
 import { Circumstances } from '../../entities/circumstances';
-import { Deceased } from '../../entities/deceased';
 import { FuneralModel } from '../../entities/funeral';
 import { PersistCircumstancesInput } from './input';
 

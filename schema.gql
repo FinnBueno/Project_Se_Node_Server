@@ -63,15 +63,37 @@ type Deceased {
   town: String
 }
 
+"""Final care of deceased person"""
+type FinalCare {
+  clothes: String
+  date: DateTime
+  deletePacemaker: String
+  detailsOfCare: String
+  family: String
+  location: String
+  makeFingerprint: String
+  makeUpHairStyleWishes: String
+  wishesJewelryGlasses: String
+}
+
 """The funeral model"""
 type Funeral {
   account: Account
   circumstances: Circumstances
   client: Client
   deceased: Deceased
+  finalcare: FinalCare
   id: ID!
+  insurances: [Insurance!]
   lastCreationStep: Float
   visiting: [Visiting!]
+  transmission: Transmission
+}
+
+"""Insurance object"""
+type Insurance {
+  company: String
+  policynumber: String
 }
 
 input LoginInput {
@@ -86,7 +108,10 @@ type Mutation {
   register(input: RegisterInput!): Account
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
-  savePersonalia(funeralId: String!, visiting: [PersistVisitingInput!]!): Visiting!
+  saveFinalCare(finalcare: PersistFinalCareInput!, funeralId: String!): FinalCare!
+  saveInsurances(funeralId: String!, insurances: [PersistInsuranceInput!]!): Boolean!
+  savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
+  saveTransmission(funeralId: String!, transmission: PersistTransmissionInput!): Transmission!
 }
 
 """Circumstances of death"""
@@ -126,14 +151,46 @@ input PersistVisitingInput {
   timeOfLeave: DateTime
 }
 
+"""Final care of deceased person"""
+input PersistFinalCareInput {
+  clothes: String
+  date: DateTime
+  deletePacemaker: String
+  detailsOfCare: String
+  family: String
+  location: String
+  makeFingerprint: String
+  makeUpHairstyleWishes: String
+  wishesJewelryGlasses: String
+
+input PersistTransmissionInput {
+  by: String
+  date: DateTime
+  from: String
+  fromAddress: String
+  fromPlace: String
+  to: String
+  toAddress: String
+  toPlace: String
+}
+
+"""Insurance object"""
+input PersistInsuranceInput {
+  company: String
+  policynumber: String
+}
+
 type Query {
   circumstances(id: String!): Circumstances
   client(id: String!): Client
+  finalcare(id: String!): FinalCare
   funeral(id: String): Funeral
   funerals: [Funeral!]!
+  insurances(id: String!): [Insurance!]
   loggedIn: Account!
   personalia(id: String!): Deceased
   visiting(id: String!): [Visiting!]
+  transmission(id: String!): Transmission
 }
 
 input RegisterInput {
@@ -151,4 +208,15 @@ type Visiting {
   specialNeeds: String
   timeOfArrival: DateTime
   timeOfLeave: DateTime
+  
+"""The transmission model"""
+type Transmission {
+  by: String
+  date: DateTime
+  from: String
+  fromAddress: String
+  fromPlace: String
+  to: String
+  toAddress: String
+  toPlace: String
 }
