@@ -71,6 +71,7 @@ type Funeral {
   deceased: Deceased
   id: ID!
   lastCreationStep: Float
+  transmission: Transmission
 }
 
 input LoginInput {
@@ -86,6 +87,7 @@ type Mutation {
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
+  saveTransmission(funeralId: String!, transmission: PersistTransmissionInput!): Transmission!
 }
 
 """Circumstances of death"""
@@ -133,6 +135,17 @@ input PersistDeceasedInput {
   town: String
 }
 
+input PersistTransmissionInput {
+  by: String
+  date: DateTime
+  from: String
+  fromAddress: String
+  fromPlace: String
+  to: String
+  toAddress: String
+  toPlace: String
+}
+
 type Query {
   circumstances(id: String!): Circumstances
   client(id: String!): Client
@@ -140,6 +153,7 @@ type Query {
   funerals: [Funeral!]!
   loggedIn: Account!
   personalia(id: String!): Deceased
+  transmission(id: String!): Transmission
 }
 
 input RegisterInput {
@@ -147,4 +161,16 @@ input RegisterInput {
   firstname: String!
   lastname: String!
   password: String!
+}
+
+"""The transmission model"""
+type Transmission {
+  by: String
+  date: DateTime
+  from: String
+  fromAddress: String
+  fromPlace: String
+  to: String
+  toAddress: String
+  toPlace: String
 }
