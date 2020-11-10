@@ -22,6 +22,23 @@ type Circumstances {
   town: String
 }
 
+"""The client model"""
+type Client {
+  address: String
+  callname: String
+  dateOfBirth: DateTime
+  emailAdress: String
+  firstLetters: String
+  firstname: String
+  gender: String
+  girlname: String
+  lastname: String
+  phoneNumber: Float
+  postal: String
+  relation: String
+  town: String
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -50,6 +67,7 @@ type Deceased {
 type Funeral {
   account: Account
   circumstances: Circumstances
+  client: Client
   deceased: Deceased
   id: ID!
   lastCreationStep: Float
@@ -66,6 +84,7 @@ type Mutation {
   logout: Boolean!
   register(input: RegisterInput!): Account
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
+  saveClient(client: PersistClientInput!, funeralId: String!): Client!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
 }
 
@@ -77,6 +96,22 @@ input PersistCircumstancesInput {
   postal: String
   reasonForProcrastination: String
   time: String
+  town: String
+}
+
+input PersistClientInput {
+  address: String
+  callname: String
+  dateOfBirth: DateTime
+  emailAdress: String
+  firstLetters: String
+  firstname: String
+  gender: String
+  girlname: String
+  lastname: String
+  phoneNumber: Float
+  postal: String
+  relation: String
   town: String
 }
 
@@ -100,6 +135,7 @@ input PersistDeceasedInput {
 
 type Query {
   circumstances(id: String!): Circumstances
+  client(id: String!): Client
   funeral(id: String): Funeral
   funerals: [Funeral!]!
   loggedIn: Account!

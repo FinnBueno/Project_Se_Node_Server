@@ -4,6 +4,7 @@ import { Ref } from '../types';
 import { Deceased } from './deceased';
 import { Account } from './auth';
 import { Circumstances } from './circumstances';
+import { Client } from './client'
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -17,6 +18,10 @@ export class Funeral {
     @Field(_type => Circumstances, { nullable: true })
     @Property({ type: Circumstances, required: false })
     circumstances?: Circumstances;
+
+    @Field(_type => Client, { nullable: true })
+    @Property({ type: Client, required: false })
+    client?: Client
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })
