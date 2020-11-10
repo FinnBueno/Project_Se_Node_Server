@@ -70,8 +70,15 @@ type Funeral {
   client: Client
   deceased: Deceased
   id: ID!
+  insurances: [Insurance!]
   lastCreationStep: Float
   transmission: Transmission
+}
+
+"""Insurance object"""
+type Insurance {
+  company: String
+  policynumber: String
 }
 
 input LoginInput {
@@ -86,6 +93,7 @@ type Mutation {
   register(input: RegisterInput!): Account
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
+  saveInsurances(funeralId: String!, insurances: [PersistInsuranceInput!]!): Boolean!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
   saveTransmission(funeralId: String!, transmission: PersistTransmissionInput!): Transmission!
 }
@@ -146,11 +154,18 @@ input PersistTransmissionInput {
   toPlace: String
 }
 
+"""Insurance object"""
+input PersistInsuranceInput {
+  company: String
+  policynumber: String
+}
+
 type Query {
   circumstances(id: String!): Circumstances
   client(id: String!): Client
   funeral(id: String): Funeral
   funerals: [Funeral!]!
+  insurances(id: String!): [Insurance!]
   loggedIn: Account!
   personalia(id: String!): Deceased
   transmission(id: String!): Transmission

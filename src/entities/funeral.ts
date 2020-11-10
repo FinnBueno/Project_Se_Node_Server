@@ -6,6 +6,7 @@ import { Account } from './auth';
 import { Circumstances } from './circumstances';
 import { Client } from './client'
 import { Transmission } from './transmission';
+import { Insurance } from './insurance';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -19,6 +20,10 @@ export class Funeral {
     @Field(_type => Circumstances, { nullable: true })
     @Property({ type: Circumstances, required: false })
     circumstances?: Circumstances;
+
+    @Field(_type => [Insurance], { nullable: true })
+    @Property({ type: [Insurance], required: false })
+    insurances?: Insurance[];
 
     @Field(_type => Client, { nullable: true })
     @Property({ type: Client, required: false })
