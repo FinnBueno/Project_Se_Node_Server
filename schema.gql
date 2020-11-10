@@ -11,6 +11,17 @@ type Account {
   lastname: String!
 }
 
+"""Circumstances of death"""
+type Circumstances {
+  address: String
+  cause: String
+  date: DateTime
+  postal: String
+  reasonForProcrastination: String
+  time: String
+  town: String
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -38,6 +49,7 @@ type Deceased {
 """The funeral model"""
 type Funeral {
   account: Account
+  circumstances: Circumstances
   deceased: Deceased
   id: ID!
   lastCreationStep: Float
@@ -53,7 +65,19 @@ type Mutation {
   login(input: LoginInput!): String
   logout: Boolean!
   register(input: RegisterInput!): Account
+  saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
+}
+
+"""Circumstances of death"""
+input PersistCircumstancesInput {
+  address: String
+  cause: String
+  date: DateTime
+  postal: String
+  reasonForProcrastination: String
+  time: String
+  town: String
 }
 
 input PersistDeceasedInput {
@@ -75,6 +99,7 @@ input PersistDeceasedInput {
 }
 
 type Query {
+  circumstances(id: String!): Circumstances
   funeral(id: String): Funeral
   funerals: [Funeral!]!
   loggedIn: Account!

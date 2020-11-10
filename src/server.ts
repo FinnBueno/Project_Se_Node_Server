@@ -6,15 +6,14 @@ import _ from 'lodash';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import session from 'express-session';
-import { DeceasedResolver } from './resolver/deceased';
-import { FuneralResolver } from './resolver/funeral';
 import { authChecker } from './auth/filter';
-import { Account, AccountModel } from './entities/auth';
 import jwt from 'jsonwebtoken'
 import { AuthResolver } from './resolver/auth';
 import cookieParser from 'cookie-parser';
 import { DecodedToken } from './types';
-import { Context } from './types';
+import { FuneralResolver } from './resolver/funeral';
+import { DeceasedResolver } from './resolver/deceased';
+import { CircumstancesResolver } from './resolver/circumstances';
 
 dotenv.config();
 
@@ -27,7 +26,12 @@ const main = async () => {
     // generate the GraphQL schema
     const schema = await buildSchema({
         // specify all resolvers in the app, we should automate this to find all resolver classes automagically
-        resolvers: [DeceasedResolver, FuneralResolver, AuthResolver],
+        resolvers: [
+            AuthResolver,
+            FuneralResolver,
+            DeceasedResolver,
+            CircumstancesResolver,
+        ],
         // create a .gql schema file
         emitSchemaFile: true,
         // we don't need class validators

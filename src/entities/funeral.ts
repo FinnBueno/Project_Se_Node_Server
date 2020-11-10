@@ -3,6 +3,7 @@ import { prop as Property, getModelForClass } from '@typegoose/typegoose';
 import { Ref } from '../types';
 import { Deceased } from './deceased';
 import { Account } from './auth';
+import { Circumstances } from './circumstances';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -12,6 +13,10 @@ export class Funeral {
     @Field(_type => Deceased, { nullable: true })
     @Property({ type: Deceased, required: false })
     deceased?: Deceased
+
+    @Field(_type => Circumstances, { nullable: true })
+    @Property({ type: Circumstances, required: false })
+    circumstances?: Circumstances;
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })
