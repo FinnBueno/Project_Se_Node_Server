@@ -96,7 +96,7 @@ const main = async () => {
 
     // fire up the server
     app.listen({ port: PORT }, () => {
-        console.log('Apollo Server on http://localhost:8000/graphql');
+        console.log(`Apollo Server on http://localhost:${PORT}/graphql`);
     });
 }
 
