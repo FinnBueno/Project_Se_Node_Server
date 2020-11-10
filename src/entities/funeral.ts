@@ -24,9 +24,9 @@ export class Funeral {
     @Property({ type: Client, required: false })
     client?: Client
 
-    @Field(_type => Visiting, { nullable: true })
-    @Property({ type: Visiting, required: false })
-    visiting?: Visiting
+    @Field(_type => [Visiting], { nullable: true })
+    @Property({ type: [Visiting], required: false })
+    visiting?: Visiting[];
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })

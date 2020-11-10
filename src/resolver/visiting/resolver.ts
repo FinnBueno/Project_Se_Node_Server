@@ -7,18 +7,18 @@ import { PersistVisitingInput } from './input';
 export class VisitingResolver {
 
     @Authorized()
-    @Query(_returns => Visiting, { nullable: true })
-    async visiting(@Arg('id') id: string): Promise<Visiting> {
+    @Query(_returns => [Visiting], { nullable: true })
+    async visiting(@Arg('id') id: string): Promise<Visiting[]> {
         return (await FuneralModel.findById(id)).visiting;
     }
 
     @Authorized()
     @Mutation(_returns => Visiting)
-    async savePersonalia(@Arg('funeralId') id: string, @Arg('visiting') visiting: PersistVisitingInput): Promise<Visiting> {
+    async savePersonalia(@Arg('funeralId') id: string, @Arg('visiting', () => [PersistVisitingInput]) visiting: PersistVisitingInput[]): Promise<boolean> {
         const funeral = await FuneralModel.findById(id);
         funeral.visiting = visiting;
-        await FuneralModel.findByIdAndUpdate(id, { visiting: funeral.visiting });
-        return funeral.visiting;
+        await FuneralModel.findByIdAndUpdate(id, { visiting });
+        return true;
     }
 
 }

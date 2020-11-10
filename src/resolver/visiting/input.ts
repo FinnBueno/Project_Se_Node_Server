@@ -1,6 +1,6 @@
 import { InputType, Field } from "type-graphql";
 
-@InputType()
+@InputType({description: "Visiting object"})
 export class PersistVisitingInput {
 
     @Field({ nullable: true })

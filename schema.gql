@@ -71,7 +71,7 @@ type Funeral {
   deceased: Deceased
   id: ID!
   lastCreationStep: Float
-  visiting: Visiting
+  visiting: [Visiting!]
 }
 
 input LoginInput {
@@ -86,7 +86,7 @@ type Mutation {
   register(input: RegisterInput!): Account
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
-  savePersonalia(funeralId: String!, visiting: PersistVisitingInput!): Visiting!
+  savePersonalia(funeralId: String!, visiting: [PersistVisitingInput!]!): Visiting!
 }
 
 """Circumstances of death"""
@@ -116,6 +116,7 @@ input PersistClientInput {
   town: String
 }
 
+"""Visiting object"""
 input PersistVisitingInput {
   date: DateTime
   kindOfVisit: String
@@ -132,7 +133,7 @@ type Query {
   funerals: [Funeral!]!
   loggedIn: Account!
   personalia(id: String!): Deceased
-  visiting(id: String!): Visiting
+  visiting(id: String!): [Visiting!]
 }
 
 input RegisterInput {
