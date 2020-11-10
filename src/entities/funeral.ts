@@ -30,7 +30,7 @@ export class Funeral {
     @Field(_type => Client, { nullable: true })
     @Property({ type: Client, required: false })
     client?: Client
-  
+
     @Field(_type => [Visiting], { nullable: true })
     @Property({ type: [Visiting], required: false })
     visiting?: Visiting[];

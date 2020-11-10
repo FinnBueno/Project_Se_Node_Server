@@ -14,7 +14,7 @@ export class VisitingResolver {
 
     @Authorized()
     @Mutation(_returns => Visiting)
-    async savePersonalia(@Arg('funeralId') id: string, @Arg('visiting', () => [PersistVisitingInput]) visiting: PersistVisitingInput[]): Promise<boolean> {
+    async saveVisiting(@Arg('funeralId') id: string, @Arg('visiting', () => [PersistVisitingInput]) visiting: PersistVisitingInput[]): Promise<boolean> {
         const funeral = await FuneralModel.findById(id);
         funeral.visiting = visiting;
         await FuneralModel.findByIdAndUpdate(id, { visiting });

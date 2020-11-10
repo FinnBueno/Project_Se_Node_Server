@@ -86,8 +86,8 @@ type Funeral {
   id: ID!
   insurances: [Insurance!]
   lastCreationStep: Float
+  transmissions: [Transmission!]
   visiting: [Visiting!]
-  transmission: Transmission
 }
 
 """Insurance object"""
@@ -111,7 +111,8 @@ type Mutation {
   saveFinalCare(finalcare: PersistFinalCareInput!, funeralId: String!): FinalCare!
   saveInsurances(funeralId: String!, insurances: [PersistInsuranceInput!]!): Boolean!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
-  saveTransmission(funeralId: String!, transmission: PersistTransmissionInput!): Transmission!
+  saveTransmissions(funeralId: String!, transmissions: [PersistTransmissionInput!]!): Boolean!
+  saveVisiting(funeralId: String!, visiting: [PersistVisitingInput!]!): Visiting!
 }
 
 """Circumstances of death"""
@@ -141,14 +142,22 @@ input PersistClientInput {
   town: String
 }
 
-"""Visiting object"""
-input PersistVisitingInput {
-  date: DateTime
-  kindOfVisit: String
-  location: String
-  specialNeeds: String
-  timeOfArrival: DateTime
-  timeOfLeave: DateTime
+input PersistDeceasedInput {
+  address: String
+  amountOfChildren: Float
+  amountOfMinors: Float
+  bsn: String
+  callname: String
+  dateOfBirth: DateTime
+  firstname: String
+  gender: String
+  girlname: String
+  lastname: String
+  maritalStatus: String
+  postal: String
+  religion: String
+  title: String
+  town: String
 }
 
 """Final care of deceased person"""
@@ -162,7 +171,15 @@ input PersistFinalCareInput {
   makeFingerprint: String
   makeUpHairstyleWishes: String
   wishesJewelryGlasses: String
+}
 
+"""Insurance object"""
+input PersistInsuranceInput {
+  company: String
+  policynumber: String
+}
+
+"""Transmission object"""
 input PersistTransmissionInput {
   by: String
   date: DateTime
@@ -174,10 +191,14 @@ input PersistTransmissionInput {
   toPlace: String
 }
 
-"""Insurance object"""
-input PersistInsuranceInput {
-  company: String
-  policynumber: String
+"""Visiting object"""
+input PersistVisitingInput {
+  date: DateTime
+  kindOfVisit: String
+  location: String
+  specialNeeds: String
+  timeOfArrival: DateTime
+  timeOfLeave: DateTime
 }
 
 type Query {
@@ -189,8 +210,8 @@ type Query {
   insurances(id: String!): [Insurance!]
   loggedIn: Account!
   personalia(id: String!): Deceased
+  transmissions(id: String!): [Transmission!]
   visiting(id: String!): [Visiting!]
-  transmission(id: String!): Transmission
 }
 
 input RegisterInput {
@@ -198,6 +219,18 @@ input RegisterInput {
   firstname: String!
   lastname: String!
   password: String!
+}
+
+"""Transmission object"""
+type Transmission {
+  by: String
+  date: DateTime
+  from: String
+  fromAddress: String
+  fromPlace: String
+  to: String
+  toAddress: String
+  toPlace: String
 }
 
 """The visiting model"""
@@ -208,15 +241,4 @@ type Visiting {
   specialNeeds: String
   timeOfArrival: DateTime
   timeOfLeave: DateTime
-  
-"""The transmission model"""
-type Transmission {
-  by: String
-  date: DateTime
-  from: String
-  fromAddress: String
-  fromPlace: String
-  to: String
-  toAddress: String
-  toPlace: String
 }
