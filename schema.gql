@@ -27,13 +27,13 @@ type Client {
   address: String
   callname: String
   dateOfBirth: DateTime
-  emailAdress: String
+  emailAddress: String
   firstLetters: String
   firstname: String
   gender: String
   girlname: String
   lastname: String
-  phoneNumber: Float
+  phoneNumber: String
   postal: String
   relation: String
   town: String
@@ -103,13 +103,13 @@ input PersistClientInput {
   address: String
   callname: String
   dateOfBirth: DateTime
-  emailAdress: String
+  emailAddress: String
   firstLetters: String
   firstname: String
   gender: String
   girlname: String
   lastname: String
-  phoneNumber: Float
+  phoneNumber: String
   postal: String
   relation: String
   town: String

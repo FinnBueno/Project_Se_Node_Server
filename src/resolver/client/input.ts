@@ -33,10 +33,10 @@ export class PersistClientInput {
     dateOfBirth?: Date;
 
     @Field({ nullable: true })
-    phoneNumber?: number;
+    phoneNumber?: string;
 
     @Field({ nullable: true })
-    emailAdress?: string;
+    emailAddress?: string;
 
     @Field({ nullable: true })
     relation?: string;

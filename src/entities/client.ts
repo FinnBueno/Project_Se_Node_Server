@@ -46,11 +46,11 @@ export class Client {
 
     @Field({ nullable: true })
     @Property()
-    phoneNumber?: number;
+    phoneNumber?: string;
 
     @Field({ nullable: true })
     @Property()
-    emailAdress?: string;
+    emailAddress?: string;
 
     @Field({ nullable: true })
     @Property()
